@@ -60,7 +60,7 @@ export function generateNewId(sensations) {
 export function createEmptySensation(id = 0) {
   return {
     id,
-    name: 'Nueva Sensación',
+    name: 'New Sensation',
     frequency: 100,
     duration: 1,
     intensity: 50,

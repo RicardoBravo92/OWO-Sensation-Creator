@@ -1,14 +1,16 @@
 import Icon from '../Icon';
+import { useLanguage } from '../../i18n/LanguageContext';
 
-const menuItems = [
-  { id: 'editor', label: 'Editor', icon: 'plus' },
-  { id: 'templates', label: 'Plantillas', icon: 'list' },
-  { id: 'prompt', label: 'Prompt IA', icon: 'magic' },
-  { id: 'import', label: 'Importar', icon: 'file-import' },
-  { id: 'export', label: 'Exportar', icon: 'file-export' },
+const menuKeys = [
+  { id: 'editor', key: 'nav.editor', icon: 'plus' },
+  { id: 'templates', key: 'nav.templates', icon: 'list' },
+  { id: 'prompt', key: 'nav.prompt', icon: 'magic' },
+  { id: 'import', key: 'nav.import', icon: 'file-import' },
+  { id: 'export', key: 'nav.export', icon: 'file-export' },
 ];
 
 export default function Sidebar({ activeView, onViewChange, isOpen }) {
+  const { t } = useLanguage();
   return (
     <aside className={`
       bg-bg-secondary border-r border-border transition-all duration-300 overflow-hidden
@@ -17,7 +19,7 @@ export default function Sidebar({ activeView, onViewChange, isOpen }) {
       ${!isOpen ? 'max-md:-translate-x-52' : ''}
     `}>
       <nav className="py-4">
-        {menuItems.map(item => (
+        {menuKeys.map(item => (
           <button
             key={item.id}
             className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors ${
@@ -28,7 +30,7 @@ export default function Sidebar({ activeView, onViewChange, isOpen }) {
             onClick={() => onViewChange(item.id)}
           >
             <Icon name={item.icon} />
-            <span className="text-sm">{item.label}</span>
+            <span className="text-sm">{t(item.key)}</span>
           </button>
         ))}
       </nav>

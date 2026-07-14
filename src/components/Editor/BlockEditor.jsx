@@ -2,9 +2,11 @@ import { useState } from 'react';
 import Icon from '../Icon';
 import SensorSelector from './SensorSelector';
 import { SENSORS } from '../../data/sensors';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 export default function BlockEditor({ block, index, onChange, onRemove }) {
   const [expanded, setExpanded] = useState(false);
+  const { t } = useLanguage();
   const h = (field, value) => onChange({ ...block, [field]: value });
 
   return (
@@ -13,7 +15,7 @@ export default function BlockEditor({ block, index, onChange, onRemove }) {
       <div className="flex justify-between items-center px-4 py-3 bg-bg-tertiary">
         <div className="flex items-center gap-2">
           <span className="text-xs text-accent font-semibold">#{index + 1}</span>
-          <input type="text" value={block.name || ''} onChange={e => h('name', e.target.value)} placeholder="Nombre del bloque" className="bg-transparent border-none text-text-primary text-sm px-1 rounded w-36 focus:outline-none focus:bg-bg-primary" />
+          <input type="text" value={block.name || ''} onChange={e => h('name', e.target.value)} placeholder={t('block.blockName')} className="bg-transparent border-none text-text-primary text-sm px-1 rounded w-36 focus:outline-none focus:bg-bg-primary" />
         </div>
         <div className="flex gap-1">
           <button className="p-1.5 text-text-muted hover:bg-bg-primary rounded transition-colors" onClick={() => setExpanded(!expanded)}>
@@ -27,7 +29,7 @@ export default function BlockEditor({ block, index, onChange, onRemove }) {
 
       {/* Summary */}
       <div className="px-4 py-2 text-xs text-text-muted flex justify-between">
-        <span>{block.sensors.length} sensores activos</span>
+        <span>{block.sensors.length} {t('block.activeSensors')}</span>
         {block.frequency !== undefined && <span className="text-text-secondary">{block.frequency}Hz | {block.duration} | {block.intensity}%</span>}
       </div>
 
@@ -37,13 +39,13 @@ export default function BlockEditor({ block, index, onChange, onRemove }) {
           {block.frequency !== undefined && (
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-4">
               {[
-                { l: 'Freq (Hz)', f: 'frequency', min: 1, max: 100 },
-                { l: 'Duración', f: 'duration', min: 0, max: 100 },
-                { l: 'Intensidad %', f: 'intensity', min: 0, max: 100 },
-                { l: 'Ramp Up', f: 'rampUp', min: 0, max: 200 },
-                { l: 'Ramp Down', f: 'rampDown', min: 0, max: 200 },
-                { l: 'Exit Time', f: 'exitTime', min: 0, max: 10 },
-                { l: 'Delay', f: 'delay', min: 0, max: 1000 },
+                { l: t('block.freq'), f: 'frequency', min: 1, max: 100 },
+                { l: t('block.duration'), f: 'duration', min: 0, max: 100 },
+                { l: t('block.intensity'), f: 'intensity', min: 0, max: 100 },
+                { l: t('block.rampUp'), f: 'rampUp', min: 0, max: 200 },
+                { l: t('block.rampDown'), f: 'rampDown', min: 0, max: 200 },
+                { l: t('block.exitTime'), f: 'exitTime', min: 0, max: 10 },
+                { l: t('block.delay'), f: 'delay', min: 0, max: 1000 },
               ].map(({ l, f, min, max }) => (
                 <div key={f} className="flex flex-col gap-1">
                   <label className="text-[10px] text-text-muted">{l}</label>
@@ -54,7 +56,7 @@ export default function BlockEditor({ block, index, onChange, onRemove }) {
           )}
 
           <div className="mb-4">
-            <h4 className="text-xs text-text-muted mb-2">Intensidad por Músculo</h4>
+            <h4 className="text-xs text-text-muted mb-2">{t('block.muscleIntensity')}</h4>
             {block.sensors.map(sensor => (
               <div key={sensor.id} className="flex items-center gap-3 py-1">
                 <span className="text-xs text-text-secondary w-28 shrink-0">{SENSORS.find(s => s.id === sensor.id)?.name || `Sensor ${sensor.id}`}</span>

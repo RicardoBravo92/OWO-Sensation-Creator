@@ -2,10 +2,12 @@ import { useState } from 'react';
 import Icon from '../Icon';
 import { saveAs } from 'file-saver';
 import { serializeAuthowoFile, serializeOwoFile } from '../../utils/serializer';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 export default function FileExporter({ sensations, currentFileName }) {
   const [exportType, setExportType] = useState('authowo');
   const [fileName, setFileName] = useState(currentFileName || 'my-sensations');
+  const { t } = useLanguage();
 
   const handleExport = () => {
     let content, filename;
@@ -32,15 +34,15 @@ export default function FileExporter({ sensations, currentFileName }) {
   return (
     <div className="max-w-xl mx-auto">
       <div className="mb-6">
-        <h2 className="text-xl flex items-center gap-2 mb-1"><Icon name="file-export" /> Exportar</h2>
-        <p className="text-sm text-text-muted">Exporta tus sensaciones en formato OWO</p>
+        <h2 className="text-xl flex items-center gap-2 mb-1"><Icon name="file-export" /> {t('export.title')}</h2>
+        <p className="text-sm text-text-muted">{t('export.subtitle')}</p>
       </div>
 
       <div className="bg-bg-card border border-border rounded-lg p-5 mb-6">
         <div className="flex flex-col gap-1 mb-4">
-          <label className="text-xs text-text-muted uppercase tracking-wide">Tipo de archivo</label>
+          <label className="text-xs text-text-muted uppercase tracking-wide">{t('export.fileType')}</label>
           <div className="flex flex-col gap-2 mt-1">
-            {[['authowo', '.authowo (Grupo de sensaciones)'], ['owo', '.owo (Sensación individual)']].map(([v, l]) => (
+            {[['authowo', t('export.groupOption')], ['owo', t('export.singleOption')]].map(([v, l]) => (
               <label key={v} className="flex items-center gap-2 cursor-pointer text-sm text-text-secondary">
                 <input type="radio" value={v} checked={exportType === v} onChange={e => setExportType(e.target.value)} className="accent-accent" />
                 {l}
@@ -51,7 +53,7 @@ export default function FileExporter({ sensations, currentFileName }) {
 
         {exportType === 'authowo' && (
           <div className="flex flex-col gap-1 mb-4">
-            <label className="text-xs text-text-muted uppercase tracking-wide">Nombre del archivo</label>
+            <label className="text-xs text-text-muted uppercase tracking-wide">{t('export.fileName')}</label>
             <div className="flex">
               <input type="text" value={fileName} onChange={e => setFileName(e.target.value)} placeholder="nombre-del-juego" className="flex-1 bg-bg-primary border border-border rounded-l-lg px-3 py-2 text-text-primary text-sm focus:outline-none focus:border-accent" />
               <span className="bg-bg-tertiary border border-border border-l-0 rounded-r-lg px-3 py-2 text-text-muted text-sm">.authowo</span>
@@ -60,12 +62,12 @@ export default function FileExporter({ sensations, currentFileName }) {
         )}
 
         <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-accent text-white rounded-lg text-sm hover:bg-accent-hover transition-colors disabled:opacity-50" onClick={handleExport} disabled={sensations.length === 0}>
-          <Icon name="download" /> Exportar {exportType === 'authowo' ? 'Grupo' : 'Sensación'}
+          <Icon name="download" /> {exportType === 'authowo' ? t('export.exportGroup') : t('export.exportSingle')}
         </button>
       </div>
 
       <div className="bg-bg-card border border-border rounded-lg p-5">
-        <h4 className="text-sm text-text-muted mb-3">Sensaciones a exportar ({sensations.length})</h4>
+        <h4 className="text-sm text-text-muted mb-3">{t('export.toExport')} ({sensations.length})</h4>
         <div className="flex flex-col gap-2">
           {sensations.map((s, i) => (
             <div key={i} className="flex items-center gap-4 px-3 py-2 bg-bg-primary rounded-lg">
