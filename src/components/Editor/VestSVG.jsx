@@ -45,7 +45,7 @@ function Dot({ id, x, y, intensity, onClick, t }) {
       title={`${id} - ${t(`sensors.${id}`)}${intensity > 0 ? ` (${intensity}%)` : ''}`}
     >
       <span className='text-[10px] font-bold text-gray-200 leading-none'>
-        {id}
+        {id + 1}
       </span>
       {/* {intensity > 0 && (
         <span className='text-[7px] text-green-300 leading-none'>

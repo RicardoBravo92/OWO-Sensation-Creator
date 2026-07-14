@@ -65,8 +65,13 @@ export default function BlockEditor({ block, index, onChange, onRemove }) {
               { l: t('block.intensity'), f: 'intensity', min: 0, max: 100 },
               { l: t('block.rampUp'), f: 'rampUp', min: 0, max: 200 },
               { l: t('block.rampDown'), f: 'rampDown', min: 0, max: 200 },
-              { l: t('block.exitTime'), f: 'exitTime', min: 0, max: 10 },
-              { l: t('block.delay'), f: 'delay', min: 0, max: 1000 },
+              {
+                l: t('block.exitTime'),
+                f: 'exitTime',
+                min: 0.0,
+                max: 2,
+                step: 0.1,
+              },
             ].map(({ l, f, min, max, step }) => (
               <div key={f} className='flex flex-col gap-1'>
                 <label className='text-[10px] text-text-muted'>{l}</label>

@@ -24,7 +24,9 @@ export default function SensorSelector({
               className={`flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer transition-colors text-xs ${active ? 'bg-green-900/30 border border-green-700/50' : 'bg-bg-primary hover:bg-bg-tertiary'}`}
               onClick={() => click(sensor.id)}
             >
-              <span className='text-accent font-semibold w-4'>{sensor.id}</span>
+              <span className='text-accent font-semibold w-4'>
+                {sensor.id + 1}
+              </span>
               <span className='text-text-secondary'>
                 {t(`sensors.${sensor.id}`)}
               </span>
