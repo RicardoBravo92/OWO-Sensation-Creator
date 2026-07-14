@@ -1,0 +1,72 @@
+import { useState } from 'react';
+import Icon from '../Icon';
+import SensorSelector from './SensorSelector';
+import { SENSORS } from '../../data/sensors';
+
+export default function BlockEditor({ block, index, onChange, onRemove }) {
+  const [expanded, setExpanded] = useState(false);
+  const h = (field, value) => onChange({ ...block, [field]: value });
+
+  return (
+    <div className="bg-bg-primary border border-border rounded-lg overflow-hidden">
+      {/* Header */}
+      <div className="flex justify-between items-center px-4 py-3 bg-bg-tertiary">
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-accent font-semibold">#{index + 1}</span>
+          <input type="text" value={block.name || ''} onChange={e => h('name', e.target.value)} placeholder="Nombre del bloque" className="bg-transparent border-none text-text-primary text-sm px-1 rounded w-36 focus:outline-none focus:bg-bg-primary" />
+        </div>
+        <div className="flex gap-1">
+          <button className="p-1.5 text-text-muted hover:bg-bg-primary rounded transition-colors" onClick={() => setExpanded(!expanded)}>
+            <Icon name={expanded ? 'chev-up' : 'chev-down'} />
+          </button>
+          <button className="p-1.5 text-text-muted hover:text-danger hover:bg-bg-primary rounded transition-colors" onClick={onRemove}>
+            <Icon name="trash" />
+          </button>
+        </div>
+      </div>
+
+      {/* Summary */}
+      <div className="px-4 py-2 text-xs text-text-muted flex justify-between">
+        <span>{block.sensors.length} sensores activos</span>
+        {block.frequency !== undefined && <span className="text-text-secondary">{block.frequency}Hz | {block.duration} | {block.intensity}%</span>}
+      </div>
+
+      {/* Details */}
+      {expanded && (
+        <div className="px-4 py-3 border-t border-border">
+          {block.frequency !== undefined && (
+            <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-4">
+              {[
+                { l: 'Freq (Hz)', f: 'frequency', min: 1, max: 100 },
+                { l: 'Duración', f: 'duration', min: 0, max: 100 },
+                { l: 'Intensidad %', f: 'intensity', min: 0, max: 100 },
+                { l: 'Ramp Up', f: 'rampUp', min: 0, max: 200 },
+                { l: 'Ramp Down', f: 'rampDown', min: 0, max: 200 },
+                { l: 'Exit Time', f: 'exitTime', min: 0, max: 10 },
+                { l: 'Delay', f: 'delay', min: 0, max: 1000 },
+              ].map(({ l, f, min, max }) => (
+                <div key={f} className="flex flex-col gap-1">
+                  <label className="text-[10px] text-text-muted">{l}</label>
+                  <input type="number" min={min} max={max} value={block[f] || 0} onChange={e => h(f, parseInt(e.target.value) || 0)} className="bg-bg-secondary border border-border rounded px-2 py-1.5 text-text-primary text-sm w-full focus:outline-none focus:border-accent" />
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="mb-4">
+            <h4 className="text-xs text-text-muted mb-2">Intensidad por Músculo</h4>
+            {block.sensors.map(sensor => (
+              <div key={sensor.id} className="flex items-center gap-3 py-1">
+                <span className="text-xs text-text-secondary w-28 shrink-0">{SENSORS.find(s => s.id === sensor.id)?.name || `Sensor ${sensor.id}`}</span>
+                <input type="range" min={0} max={100} value={sensor.intensity} onChange={e => { const n = block.sensors.map(s => s.id === sensor.id ? { ...s, intensity: Math.min(100, Math.max(0, parseInt(e.target.value))) } : s); h('sensors', n); }} className="flex-1 accent-accent" />
+                <span className="text-[11px] text-text-muted w-10 text-right">{sensor.intensity}%</span>
+              </div>
+            ))}
+          </div>
+
+          <SensorSelector selectedSensors={block.sensors} onSensorToggle={id => { const ex = block.sensors.find(s => s.id === id); h('sensors', ex ? block.sensors.filter(s => s.id !== id) : [...block.sensors, { id, intensity: 100 }]); }} />
+        </div>
+      )}
+    </div>
+  );
+}

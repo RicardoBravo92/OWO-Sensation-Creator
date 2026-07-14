@@ -1,0 +1,17 @@
+export const GROUPS = [
+  { id: 'Default', name: 'Default' },
+  { id: 'Combat', name: 'Combate' },
+  { id: 'Parkour', name: 'Parkour' },
+  { id: 'Abilities', name: 'Habilidades' },
+  { id: 'Notifications', name: 'Notificaciones' },
+  { id: 'Miscellaneous', name: 'Misceláneos' },
+  { id: 'Collisions', name: 'Colisiones' },
+  { id: 'Gameplay Events', name: 'Eventos de Gameplay' },
+  { id: 'Mass Transfer', name: 'Transferencia de Masa' },
+  { id: 'Nitro', name: 'Nitro' },
+  { id: 'Interactions', name: 'Interacciones' },
+  { id: 'Health', name: 'Salud' },
+  { id: 'Magic', name: 'Magia' },
+  { id: 'Feedback', name: 'Feedback' },
+  { id: 'Impacts', name: 'Impactos' },
+];
