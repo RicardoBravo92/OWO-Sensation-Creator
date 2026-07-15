@@ -175,103 +175,48 @@
     "alert-0": "Alerta"
   },
   "templateData": {
-    "light-hit": {
-      "name": "Golpe Ligero",
-      "desc": "Golpe rápido y suave en zona específica"
-    },
-    "heavy-hit": {
-      "name": "Golpe Pesado",
-      "desc": "Golpe fuerte con impacto en todo el torso"
-    },
-    "sword-slash": {
-      "name": "Tajo de Espada",
-      "desc": "Corte diagonal con sangrado"
-    },
-    "arrow-hit": {
-      "name": "Flechazo",
-      "desc": "Impacto de proyectil con penetración"
-    },
-    "block-parry": {
-      "name": "Bloqueo/Parry",
-      "desc": "Bloqueo de ataque con vibración corta"
-    },
-    "death": {
-      "name": "Muerte",
-      "desc": "Sensación de derrota/muerte en todo el cuerpo"
-    },
-    "jump": {
-      "name": "Salto",
-      "desc": "Impulso ascendente en piernas"
-    },
-    "fall-landing": {
-      "name": "Aterrizaje",
-      "desc": "Impacto al caer en piernas y espalda baja"
-    },
-    "dodge": {
-      "name": "Esquiva",
-      "desc": "Movimiento rápido lateral"
-    },
-    "sprint": {
-      "name": "Sprint",
-      "desc": "Carrera continua con pasos"
-    },
-    "wind": {
-      "name": "Viento",
-      "desc": "Brisa suave en la espalda"
-    },
-    "rain": {
-      "name": "Lluvia",
-      "desc": "Gotas aleatorias en todo el cuerpo"
-    },
-    "fire": {
-      "name": "Fuego",
-      "desc": "Quemadura con fuego en zona frontal"
-    },
-    "engine-idle": {
-      "name": "Motor en Ralentí",
-      "desc": "Vibración continua del motor"
-    },
-    "nitro": {
-      "name": "Nitro",
-      "desc": "Impulso de aceleración"
-    },
-    "collision-front": {
-      "name": "Choque Frontal",
-      "desc": "Impacto fuerte en el pecho"
-    },
-    "collision-back": {
-      "name": "Choque Trasero",
-      "desc": "Impacto en la espalda"
-    },
-    "handbrake": {
-      "name": "Freno de Mano",
-      "desc": "Frenado brusco"
-    },
-    "level-up": {
-      "name": "Subir de Nivel",
-      "desc": "Notificación de logro ascendente"
-    },
-    "victory": {
-      "name": "Victoria",
-      "desc": "Celebración de victoria"
-    },
-    "heartbeat": {
-      "name": "Latido",
-      "desc": "Pulso cardíaco"
-    },
-    "healing": {
-      "name": "Curación",
-      "desc": "Efecto de curación suave"
-    },
-    "hug": {
-      "name": "Abrazo",
-      "desc": "Abrazo suave y envolvente"
-    },
-    "combat": "Combate",
+    "melee": { "name": "Melee", "desc": "Golpe cuerpo a cuerpo rápido" },
+    "pistol": { "name": "Pistol", "desc": "Disparo de pistola con retroceso" },
+    "smg": { "name": "SMG", "desc": "Ametralladora con retroceso continuo" },
+    "assault": { "name": "Assault Rifle", "desc": "Rifle de asalto con retroceso moderado" },
+    "shotgun": { "name": "Shotgun", "desc": "Escopeta con impacto fuerte y retardo" },
+    "launcher": { "name": "Launcher", "desc": "Lanzacohetes con doble impacto" },
+    "bullet-impact": { "name": "Impacto de Bala", "desc": "Impacto de bala con vibración fuerte" },
+    "gta-default": { "name": "Default GTA", "desc": "Sensación base de GTA V (todo el cuerpo)" },
+    "explosive": { "name": "Explosión", "desc": "Explosión con onda expansiva en todo el cuerpo" },
+    "heavy": { "name": "Pesado", "desc": "Impacto pesado con caída" },
+    "drowning": { "name": "Ahogo", "desc": "Ahogo con vibración en torso y brazos" },
+    "gta-fall": { "name": "Caída (GTA)", "desc": "Caída con impacto en el suelo" },
+    "vehicle": { "name": "Vehículo (GTA)", "desc": "Impacto de vehículo con vibración prolongada" },
+    "jump": { "name": "Salto", "desc": "Impulso ascendente en piernas" },
+    "sprint": { "name": "Sprint", "desc": "Carrera continua con pasos" },
+    "wind": { "name": "Viento", "desc": "Brisa suave en la espalda" },
+    "fire": { "name": "Fuego", "desc": "Quemadura con fuego en zona frontal" },
+    "warning": { "name": "Alerta (GTA)", "desc": "Alerta pulsante en la espalda" },
+    "gta-death": { "name": "Muerte (GTA)", "desc": "Muerte con pulso en todo el cuerpo" },
+    "heartbeat": { "name": "Latido", "desc": "Pulso cardíaco" },
+    "healing": { "name": "Curación", "desc": "Efecto de curación suave" },
+    "level-up": { "name": "Subir de Nivel", "desc": "Notificación de logro ascendente" },
+    "nitro": { "name": "Nitro", "desc": "Impulso de aceleración en la espalda" },
+    "front-collision": { "name": "Choque Frontal", "desc": "Impacto frontal con rebote" },
+    "back-collision": { "name": "Choque Trasero", "desc": "Impacto trasero con rebote" },
+    "left-collision": { "name": "Choque Izquierdo", "desc": "Impacto lateral izquierdo" },
+    "right-collision": { "name": "Choque Derecho", "desc": "Impacto lateral derecho" },
+    "big-jump-landing": { "name": "Aterrizaje de Salto Grande", "desc": "Impacto fuerte al caer de un salto alto" },
+    "front-object-collision": { "name": "Choque con Objeto Frontal", "desc": "Impacto contra un objeto al frente" },
+    "back-object-collision": { "name": "Choque con Objeto Trasero", "desc": "Impacto contra un objeto por detrás" },
+    "scraps": { "name": "Raspadura", "desc": "Vibración de raspadura suave" },
+    "handbrake": { "name": "Freno de Mano", "desc": "Derrape con freno de mano" },
+    "countdown": { "name": "3-2-1 Cuenta Regresiva", "desc": "Cuenta regresiva de salida" },
+    "go": { "name": "¡GO!", "desc": "Señal de salida" },
+    "checkpoints": { "name": "Checkpoints", "desc": "Paso por checkpoint" },
+    "nitro-lane": { "name": "Carril de Nitro", "desc": "Carril de nitro" },
+    "finish-line": { "name": "Línea de Meta", "desc": "Cruce de línea de meta con celebración" },
+    "weapons": "Armas",
+    "impacts": "Impactos",
     "movement": "Movimiento",
     "environment": "Entorno",
-    "vehicle": "Vehículos",
     "feedback": "Feedback/UI",
-    "interaction": "Interacciones"
+    "racing": "Carreras"
   }
 }

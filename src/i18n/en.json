@@ -175,103 +175,48 @@
     "alert-0": "Alert"
   },
   "templateData": {
-    "light-hit": {
-      "name": "Light Hit",
-      "desc": "Quick light hit on specific zone"
-    },
-    "heavy-hit": {
-      "name": "Heavy Hit",
-      "desc": "Strong hit with full torso impact"
-    },
-    "sword-slash": {
-      "name": "Sword Slash",
-      "desc": "Diagonal cut with bleeding"
-    },
-    "arrow-hit": {
-      "name": "Arrow Hit",
-      "desc": "Projectile impact with penetration"
-    },
-    "block-parry": {
-      "name": "Block/Parry",
-      "desc": "Attack block with short vibration"
-    },
-    "death": {
-      "name": "Death",
-      "desc": "Defeat/death sensation across entire body"
-    },
-    "jump": {
-      "name": "Jump",
-      "desc": "Upward impulse on legs"
-    },
-    "fall-landing": {
-      "name": "Landing",
-      "desc": "Impact when falling on legs and lower back"
-    },
-    "dodge": {
-      "name": "Dodge",
-      "desc": "Quick lateral movement"
-    },
-    "sprint": {
-      "name": "Sprint",
-      "desc": "Continuous running with steps"
-    },
-    "wind": {
-      "name": "Wind",
-      "desc": "Gentle breeze on the back"
-    },
-    "rain": {
-      "name": "Rain",
-      "desc": "Random drops across entire body"
-    },
-    "fire": {
-      "name": "Fire",
-      "desc": "Fire burn on front zone"
-    },
-    "engine-idle": {
-      "name": "Engine Idle",
-      "desc": "Continuous engine vibration"
-    },
-    "nitro": {
-      "name": "Nitro",
-      "desc": "Acceleration boost"
-    },
-    "collision-front": {
-      "name": "Front Collision",
-      "desc": "Strong impact on chest"
-    },
-    "collision-back": {
-      "name": "Rear Collision",
-      "desc": "Impact on back"
-    },
-    "handbrake": {
-      "name": "Handbrake",
-      "desc": "Hard braking"
-    },
-    "level-up": {
-      "name": "Level Up",
-      "desc": "Upward achievement notification"
-    },
-    "victory": {
-      "name": "Victory",
-      "desc": "Victory celebration"
-    },
-    "heartbeat": {
-      "name": "Heartbeat",
-      "desc": "Cardiac pulse"
-    },
-    "healing": {
-      "name": "Healing",
-      "desc": "Gentle healing effect"
-    },
-    "hug": {
-      "name": "Hug",
-      "desc": "Soft enveloping hug"
-    },
-    "combat": "Combat",
+    "melee": { "name": "Melee", "desc": "Quick close combat hit" },
+    "pistol": { "name": "Pistol", "desc": "Pistol shot with recoil" },
+    "smg": { "name": "SMG", "desc": "SMG with continuous recoil" },
+    "assault": { "name": "Assault Rifle", "desc": "Assault rifle with moderate recoil" },
+    "shotgun": { "name": "Shotgun", "desc": "Shotgun with strong impact and delay" },
+    "launcher": { "name": "Launcher", "desc": "Rocket launcher with double impact" },
+    "bullet-impact": { "name": "Bullet Impact", "desc": "Bullet impact with strong vibration" },
+    "gta-default": { "name": "Default GTA", "desc": "GTA V base sensation (full body)" },
+    "explosive": { "name": "Explosive", "desc": "Explosion with shockwave across entire body" },
+    "heavy": { "name": "Heavy", "desc": "Heavy impact with fall" },
+    "drowning": { "name": "Drowning", "desc": "Drowning with torso and arm vibration" },
+    "gta-fall": { "name": "Fall (GTA)", "desc": "Fall with ground impact" },
+    "vehicle": { "name": "Vehicle (GTA)", "desc": "Vehicle impact with prolonged vibration" },
+    "jump": { "name": "Jump", "desc": "Upward impulse on legs" },
+    "sprint": { "name": "Sprint", "desc": "Continuous running with steps" },
+    "wind": { "name": "Wind", "desc": "Gentle breeze on the back" },
+    "fire": { "name": "Fire", "desc": "Fire burn on front zone" },
+    "warning": { "name": "Warning (GTA)", "desc": "Pulsing alert on back" },
+    "gta-death": { "name": "Death (GTA)", "desc": "Death with full body pulse" },
+    "heartbeat": { "name": "Heartbeat", "desc": "Cardiac pulse" },
+    "healing": { "name": "Healing", "desc": "Gentle healing effect" },
+    "level-up": { "name": "Level Up", "desc": "Upward achievement notification" },
+    "nitro": { "name": "Nitro", "desc": "Acceleration boost on back" },
+    "front-collision": { "name": "Front Collision", "desc": "Front impact with rebound" },
+    "back-collision": { "name": "Back Collision", "desc": "Rear impact with rebound" },
+    "left-collision": { "name": "Left Collision", "desc": "Left side impact" },
+    "right-collision": { "name": "Right Collision", "desc": "Right side impact" },
+    "big-jump-landing": { "name": "Big Jump Landing", "desc": "Heavy landing from high jump" },
+    "front-object-collision": { "name": "Front Object Collision", "desc": "Impact against object ahead" },
+    "back-object-collision": { "name": "Back Object Collision", "desc": "Impact against object behind" },
+    "scraps": { "name": "Scraps", "desc": "Light scraping vibration" },
+    "handbrake": { "name": "Handbrake", "desc": "Handbrake drift" },
+    "countdown": { "name": "3-2-1 Countdown", "desc": "Race start countdown" },
+    "go": { "name": "Go!", "desc": "Start signal" },
+    "checkpoints": { "name": "Checkpoints", "desc": "Checkpoint passing" },
+    "nitro-lane": { "name": "Nitro Lane", "desc": "Nitro boost lane" },
+    "finish-line": { "name": "Finish Line", "desc": "Crossing the finish line" },
+    "weapons": "Weapons",
+    "impacts": "Impacts",
     "movement": "Movement",
     "environment": "Environment",
-    "vehicle": "Vehicles",
     "feedback": "Feedback/UI",
-    "interaction": "Interactions"
+    "racing": "Racing"
   }
 }
