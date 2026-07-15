@@ -72,7 +72,7 @@ export default function FileExporter({ sensations, currentFileName }) {
           {sensations.map((s, i) => (
             <div key={i} className="flex items-center gap-4 px-3 py-2 bg-bg-primary rounded-lg">
               <span className="flex-1 text-sm">{s.name}</span>
-              <span className="text-xs text-text-muted">{s.frequency}Hz | {s.intensity}%</span>
+              <span className="text-xs text-text-muted">{s.blocks[0]?.frequency ?? 100}Hz | {s.blocks[0]?.intensity ?? 50}%</span>
               <button className="flex items-center gap-1 px-2 py-1 bg-bg-tertiary text-text-primary border border-border rounded text-xs hover:bg-bg-card transition-colors" onClick={() => handleSingle(s)}>
                 <Icon name="download" /> .owo
               </button>

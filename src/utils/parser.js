@@ -36,54 +36,86 @@ function parseSensationLine(line) {
   const middleParts = parts.slice(2, iconIndex);
   const combinedField = middleParts.join('~');
 
-  // Find where global params end and blocks begin
-  const firstPipe = combinedField.indexOf('|');
-  const firstAmpersand = combinedField.indexOf('&');
+  const defaultGlobal = { frequency: 100, duration: 1, intensity: 50, rampUp: 0, rampDown: 0, exitTime: 0 };
 
-  let globalParamsStr = combinedField;
-  let blockSection = '';
+  // Check if first token of combinedField looks like 6 global params
+  // (old format: "100,10,50,0,0,0,blocks..." vs new format: "100,10,50,0,0,0,...blocks..." or just blocks)
+  const firstCommaIdx = combinedField.indexOf(',');
+  let blockSection = combinedField;
+  let global = { ...defaultGlobal };
 
-  if (firstPipe > -1 || firstAmpersand > -1) {
-    const commas = [];
-    for (let i = 0; i < combinedField.length; i++) {
-      if (combinedField[i] === ',') commas.push(i);
-    }
-    if (commas.length >= 6) {
-      globalParamsStr = combinedField.substring(0, commas[5]);
-      blockSection = combinedField.substring(commas[5] + 1);
-    }
-  } else {
-    // No pipe and no ampersand - check if there's content after 6th comma
-    const commas = [];
-    for (let i = 0; i < combinedField.length; i++) {
-      if (combinedField[i] === ',') commas.push(i);
-    }
-    if (commas.length >= 6) {
-      globalParamsStr = combinedField.substring(0, commas[5]);
-      blockSection = combinedField.substring(commas[5] + 1);
+  if (firstCommaIdx > -1) {
+    const beforeFirstComma = combinedField.substring(0, firstCommaIdx);
+    // Check if this looks like a block with sensors (contains %) or a block with 6 nums
+    // In old format, first 6 comma-separated values before any | or & are globals
+    const hasPipe = combinedField.indexOf('|') > -1;
+    const hasAmp = combinedField.indexOf('&') > -1;
+
+    if (hasPipe || hasAmp) {
+      // Old format detection: check if before the first | or & there are 6+ numbers
+      const splitTarget = hasPipe ? combinedField.indexOf('|') : combinedField.indexOf('&');
+      const beforeBlock = combinedField.substring(0, splitTarget);
+      const commasInBefore = (beforeBlock.match(/,/g) || []).length;
+
+      if (commasInBefore >= 6) {
+        // Old format: first 6 comma-values are globals
+        const allCommas = [];
+        for (let i = 0; i < combinedField.length; i++) {
+          if (combinedField[i] === ',') allCommas.push(i);
+        }
+        const globalStr = combinedField.substring(0, allCommas[5]);
+        blockSection = combinedField.substring(allCommas[5] + 1);
+
+        const gp = globalStr.split(',').map(Number);
+        global = {
+          frequency: gp[0] || 100,
+          duration: (gp[1] || 1) / 10,
+          intensity: gp[2] || 50,
+          rampUp: gp[3] || 0,
+          rampDown: gp[4] || 0,
+          exitTime: gp[5] || 0,
+        };
+      }
+    } else {
+      // No pipe and no ampersand - just sensors or single block
+      // Check if first 6 comma-separated values before any % look like global params
+      const percentIdx = combinedField.indexOf('%');
+      const beforePercent = percentIdx > -1 ? combinedField.substring(0, percentIdx) : combinedField;
+      const commasInBefore = (beforePercent.match(/,/g) || []).length;
+
+      if (commasInBefore >= 6) {
+        const allCommas = [];
+        for (let i = 0; i < combinedField.length; i++) {
+          if (combinedField[i] === ',') allCommas.push(i);
+        }
+        const globalStr = combinedField.substring(0, allCommas[5]);
+        blockSection = combinedField.substring(allCommas[5] + 1);
+
+        const gp = globalStr.split(',').map(Number);
+        global = {
+          frequency: gp[0] || 100,
+          duration: (gp[1] || 1) / 10,
+          intensity: gp[2] || 50,
+          rampUp: gp[3] || 0,
+          rampDown: gp[4] || 0,
+          exitTime: gp[5] || 0,
+        };
+      }
     }
   }
 
-  const globalParams = globalParamsStr.split(',').map(Number);
-
-  const blocks = parseBlocks(blockSection);
+  const blocks = parseBlocks(blockSection, global);
 
   return {
     id,
     name,
-    frequency: globalParams[0] || 100,
-    duration: globalParams[1] || 1,
-    intensity: globalParams[2] || 100,
-    rampUp: globalParams[3] || 0,
-    rampDown: globalParams[4] || 0,
-    exitTime: globalParams[5] || 0,
     blocks,
     icon: icon || 'impact-0',
     group: group || 'Default',
   };
 }
 
-function parseBlocks(blockSection) {
+function parseBlocks(blockSection, global) {
   if (!blockSection) return [];
 
   const blocks = blockSection.split('&');
@@ -120,7 +152,7 @@ function parseBlocks(blockSection) {
       if (nums.length === 6) {
         blockParams = {
           frequency: nums[0],
-          duration: nums[1],
+          duration: nums[1] / 10,
           intensity: nums[2],
           rampUp: nums[3],
           rampDown: nums[4],
@@ -131,7 +163,6 @@ function parseBlocks(blockSection) {
         blockName = beforePipe.trim();
       }
     } else {
-      // No pipe - could be just a name (like "Hit") or sensors
       const parts = trimmed.split(',');
       const nums = [];
       let nameStart = 0;
@@ -150,7 +181,7 @@ function parseBlocks(blockSection) {
       if (nums.length === 6) {
         blockParams = {
           frequency: nums[0],
-          duration: nums[1],
+          duration: nums[1] / 10,
           intensity: nums[2],
           rampUp: nums[3],
           rampDown: nums[4],
@@ -158,7 +189,6 @@ function parseBlocks(blockSection) {
         };
         blockName = parts.slice(nameStart).join(',').trim();
       } else {
-        // Just a name like "Hit" or just sensors
         if (trimmed.includes('%')) {
           sensorStr = trimmed;
         } else {
@@ -177,6 +207,12 @@ function parseBlocks(blockSection) {
       sensors: sensors.length > 0 ? sensors : [{ id: 0, intensity: 100 }],
       name: blockName,
       delay,
+      frequency: global.frequency,
+      duration: global.duration,
+      intensity: global.intensity,
+      rampUp: global.rampUp,
+      rampDown: global.rampDown,
+      exitTime: global.exitTime,
     };
     if (blockParams) {
       Object.assign(entry, blockParams);

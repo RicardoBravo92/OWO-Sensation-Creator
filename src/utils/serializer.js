@@ -1,21 +1,5 @@
 export function serializeSensation(sensation) {
-  const {
-    id,
-    name,
-    frequency,
-    duration,
-    intensity,
-    rampUp,
-    rampDown,
-    exitTime,
-    blocks,
-    icon,
-    group,
-  } = sensation;
-
-  const params = `${frequency},${duration},${intensity},${rampUp},${rampDown},${exitTime}`;
-
-  const blockStrings = blocks.map((block, index) => {
+  const blockStrings = sensation.blocks.map((block) => {
     const sensorStr = block.sensors
       .map(s => `${s.id}%${s.intensity}`)
       .join(',');
@@ -23,25 +7,26 @@ export function serializeSensation(sensation) {
     const hasSensors = sensorStr.length > 0;
     const hasParams = block.frequency !== undefined;
 
+    const bdur = block.duration !== undefined ? Math.round(block.duration * 10) : 1;
+
     if (hasParams && hasSensors) {
-      return `${block.frequency},${block.duration},${block.intensity},${block.rampUp},${block.rampDown},${block.exitTime},${block.name || ''}|${sensorStr}`;
+      return `${block.frequency},${bdur},${block.intensity},${block.rampUp ?? 0},${block.rampDown ?? 0},${block.exitTime ?? 0},${block.name || ''}|${sensorStr}`;
     }
 
     if (hasParams && !hasSensors) {
-      return `${block.frequency},${block.duration},${block.intensity},${block.rampUp},${block.rampDown},${block.exitTime},${block.name || ''}`;
+      return `${block.frequency},${bdur},${block.intensity},${block.rampUp ?? 0},${block.rampDown ?? 0},${block.exitTime ?? 0},${block.name || ''}`;
     }
 
     if (!hasParams && hasSensors) {
       return sensorStr;
     }
 
-    // No params, no sensors - just a name
     return block.name || '';
   });
 
   const blockStr = blockStrings.length > 0 ? blockStrings.join('&') : '';
 
-  return `${id}~${name}~${params},${blockStr}~${icon}~${group}~#`;
+  return `${sensation.id}~${sensation.name}~${blockStr}~${sensation.icon}~${sensation.group}~#`;
 }
 
 export function serializeAuthowoFile(sensations) {
@@ -61,14 +46,8 @@ export function createEmptySensation(id = 0) {
   return {
     id,
     name: 'New Sensation',
-    frequency: 100,
-    duration: 1,
-    intensity: 50,
-    rampUp: 0,
-    rampDown: 0,
-    exitTime: 0,
     blocks: [
-      { sensors: [{ id: 0, intensity: 100 }], name: 'Block 1' },
+      { sensors: [{ id: 0, intensity: 100 }], name: 'Block 1', frequency: 100, duration: 1, intensity: 50, rampUp: 0, rampDown: 0, exitTime: 0 },
     ],
     icon: 'impact-0',
     group: 'Default',

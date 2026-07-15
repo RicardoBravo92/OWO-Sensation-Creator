@@ -21,7 +21,7 @@
     "frequency": "Frecuencia (Hz)",
     "duration": "Duración",
     "intensity": "Intensidad (%)",
-    "rampUp": "Ramp Up (ms)",
+    "rampUp": "Fade In(ms)",
     "rampDown": "Ramp Down (ms)",
     "exitTime": "Exit Time",
     "icon": "Icono",
@@ -39,8 +39,8 @@
     "freq": "Freq (Hz)",
     "duration": "Duración (s)",
     "intensity": "Intensidad %",
-    "rampUp": "Ramp Up (ms)",
-    "rampDown": "Ramp Down (ms)",
+    "rampUp": "Fade In (ms)",
+    "rampDown": "Fade Out(ms)",
     "exitTime": "Exit Time",
     "muscleIntensity": "Intensidad por Músculo"
   },
@@ -50,10 +50,13 @@
   },
   "import": {
     "title": "Importar Archivo",
-    "subtitle": "Arrastra un archivo .owo o .authowo o haz clic para seleccionar",
+    "subtitle": "Arrastra un archivo .owo o .authowo, haz clic para seleccionar, o pega texto raw",
     "loaded": "Archivo cargado:",
     "drag": "Arrastra el archivo aquí o haz clic para seleccionar",
-    "formats": "Formatos soportados: .owo, .authowo"
+    "formats": "Formatos soportados: .owo, .authowo",
+    "pasteTitle": "O pega texto .owo directamente",
+    "pastePlaceholder": "5~Double Jump~60,1,70,0,100,0,Fall|9%70,8%70,3%60,2%60,7%100,6%100~environment-5~Movement",
+    "parsePaste": "Parsear e Importar"
   },
   "export": {
     "title": "Exportar",
@@ -172,29 +175,98 @@
     "alert-0": "Alerta"
   },
   "templateData": {
-    "light-hit": { "name": "Golpe Ligero", "desc": "Golpe rápido y suave en zona específica" },
-    "heavy-hit": { "name": "Golpe Pesado", "desc": "Golpe fuerte con impacto en todo el torso" },
-    "sword-slash": { "name": "Tajo de Espada", "desc": "Corte diagonal con sangrado" },
-    "arrow-hit": { "name": "Flechazo", "desc": "Impacto de proyectil con penetración" },
-    "block-parry": { "name": "Bloqueo/Parry", "desc": "Bloqueo de ataque con vibración corta" },
-    "death": { "name": "Muerte", "desc": "Sensación de derrota/muerte en todo el cuerpo" },
-    "jump": { "name": "Salto", "desc": "Impulso ascendente en piernas" },
-    "fall-landing": { "name": "Aterrizaje", "desc": "Impacto al caer en piernas y espalda baja" },
-    "dodge": { "name": "Esquiva", "desc": "Movimiento rápido lateral" },
-    "sprint": { "name": "Sprint", "desc": "Carrera continua con pasos" },
-    "wind": { "name": "Viento", "desc": "Brisa suave en la espalda" },
-    "rain": { "name": "Lluvia", "desc": "Gotas aleatorias en todo el cuerpo" },
-    "fire": { "name": "Fuego", "desc": "Quemadura con fuego en zona frontal" },
-    "engine-idle": { "name": "Motor en Ralentí", "desc": "Vibración continua del motor" },
-    "nitro": { "name": "Nitro", "desc": "Impulso de aceleración" },
-    "collision-front": { "name": "Choque Frontal", "desc": "Impacto fuerte en el pecho" },
-    "collision-back": { "name": "Choque Trasero", "desc": "Impacto en la espalda" },
-    "handbrake": { "name": "Freno de Mano", "desc": "Frenado brusco" },
-    "level-up": { "name": "Subir de Nivel", "desc": "Notificación de logro ascendente" },
-    "victory": { "name": "Victoria", "desc": "Celebración de victoria" },
-    "heartbeat": { "name": "Latido", "desc": "Pulso cardíaco" },
-    "healing": { "name": "Curación", "desc": "Efecto de curación suave" },
-    "hug": { "name": "Abrazo", "desc": "Abrazo suave y envolvente" },
+    "light-hit": {
+      "name": "Golpe Ligero",
+      "desc": "Golpe rápido y suave en zona específica"
+    },
+    "heavy-hit": {
+      "name": "Golpe Pesado",
+      "desc": "Golpe fuerte con impacto en todo el torso"
+    },
+    "sword-slash": {
+      "name": "Tajo de Espada",
+      "desc": "Corte diagonal con sangrado"
+    },
+    "arrow-hit": {
+      "name": "Flechazo",
+      "desc": "Impacto de proyectil con penetración"
+    },
+    "block-parry": {
+      "name": "Bloqueo/Parry",
+      "desc": "Bloqueo de ataque con vibración corta"
+    },
+    "death": {
+      "name": "Muerte",
+      "desc": "Sensación de derrota/muerte en todo el cuerpo"
+    },
+    "jump": {
+      "name": "Salto",
+      "desc": "Impulso ascendente en piernas"
+    },
+    "fall-landing": {
+      "name": "Aterrizaje",
+      "desc": "Impacto al caer en piernas y espalda baja"
+    },
+    "dodge": {
+      "name": "Esquiva",
+      "desc": "Movimiento rápido lateral"
+    },
+    "sprint": {
+      "name": "Sprint",
+      "desc": "Carrera continua con pasos"
+    },
+    "wind": {
+      "name": "Viento",
+      "desc": "Brisa suave en la espalda"
+    },
+    "rain": {
+      "name": "Lluvia",
+      "desc": "Gotas aleatorias en todo el cuerpo"
+    },
+    "fire": {
+      "name": "Fuego",
+      "desc": "Quemadura con fuego en zona frontal"
+    },
+    "engine-idle": {
+      "name": "Motor en Ralentí",
+      "desc": "Vibración continua del motor"
+    },
+    "nitro": {
+      "name": "Nitro",
+      "desc": "Impulso de aceleración"
+    },
+    "collision-front": {
+      "name": "Choque Frontal",
+      "desc": "Impacto fuerte en el pecho"
+    },
+    "collision-back": {
+      "name": "Choque Trasero",
+      "desc": "Impacto en la espalda"
+    },
+    "handbrake": {
+      "name": "Freno de Mano",
+      "desc": "Frenado brusco"
+    },
+    "level-up": {
+      "name": "Subir de Nivel",
+      "desc": "Notificación de logro ascendente"
+    },
+    "victory": {
+      "name": "Victoria",
+      "desc": "Celebración de victoria"
+    },
+    "heartbeat": {
+      "name": "Latido",
+      "desc": "Pulso cardíaco"
+    },
+    "healing": {
+      "name": "Curación",
+      "desc": "Efecto de curación suave"
+    },
+    "hug": {
+      "name": "Abrazo",
+      "desc": "Abrazo suave y envolvente"
+    },
     "combat": "Combate",
     "movement": "Movimiento",
     "environment": "Entorno",

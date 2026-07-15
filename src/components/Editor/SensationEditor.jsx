@@ -101,17 +101,16 @@ function InputField({ label, type, min, max, step, value, onChange }) {
 }
 
 function genText(s) {
-  const p = `${s.frequency},${s.duration},${s.intensity},${s.rampUp},${s.rampDown},${s.exitTime}`;
   const bs = s.blocks.map(b => {
     const ss = b.sensors.map(x => `${x.id}%${x.intensity}`).join(',');
-    const freq = b.frequency ?? 100;
-    const dur = b.duration ?? 1;
-    const int = b.intensity ?? 100;
-    const ru = b.rampUp ?? 0;
-    const rd = b.rampDown ?? 0;
-    const et = b.exitTime ?? 0;
+    const bf = b.frequency ?? 100;
+    const bd = Math.round((b.duration ?? 1) * 10);
+    const bi = b.intensity ?? 100;
+    const bru = b.rampUp ?? 0;
+    const brd = b.rampDown ?? 0;
+    const bet = b.exitTime ?? 0;
     const name = b.name || '';
-    return `${freq},${dur},${int},${ru},${rd},${et},${name}|${ss}`;
+    return `${bf},${bd},${bi},${bru},${brd},${bet},${name}|${ss}`;
   });
-  return `${s.id}~${s.name}~${p},${bs.join('&')}~${s.icon}~${s.group}~#`;
+  return `${s.id}~${s.name}~${bs.join('&')}~${s.icon}~${s.group}~#`;
 }

@@ -21,8 +21,8 @@
     "frequency": "Frequency (Hz)",
     "duration": "Duration",
     "intensity": "Intensity (%)",
-    "rampUp": "Ramp Up (ms)",
-    "rampDown": "Ramp Down (ms)",
+    "rampUp": "Fade In (ms)",
+    "rampDown": "Fade Out (ms)",
     "exitTime": "Exit Time",
     "icon": "Icon",
     "group": "Group",
@@ -39,8 +39,8 @@
     "freq": "Freq (Hz)",
     "duration": "Duration (s)",
     "intensity": "Intensity %",
-    "rampUp": "Ramp Up (ms)",
-    "rampDown": "Ramp Down (ms)",
+    "rampUp": "Fade In (ms)",
+    "rampDown": "Fade Out (ms)",
     "exitTime": "Exit Time",
     "muscleIntensity": "Intensity by Muscle"
   },
@@ -50,10 +50,13 @@
   },
   "import": {
     "title": "Import File",
-    "subtitle": "Drag a .owo or .authowo file or click to select",
+    "subtitle": "Drag a .owo or .authowo file, click to select, or paste raw text",
     "loaded": "File loaded:",
     "drag": "Drag the file here or click to select",
-    "formats": "Supported formats: .owo, .authowo"
+    "formats": "Supported formats: .owo, .authowo",
+    "pasteTitle": "Or paste raw .owo text",
+    "pastePlaceholder": "5~Double Jump~60,1,70,0,100,0,Fall|9%70,8%70,3%60,2%60,7%100,6%100~environment-5~Movement",
+    "parsePaste": "Parse & Import"
   },
   "export": {
     "title": "Export",
@@ -172,29 +175,98 @@
     "alert-0": "Alert"
   },
   "templateData": {
-    "light-hit": { "name": "Light Hit", "desc": "Quick light hit on specific zone" },
-    "heavy-hit": { "name": "Heavy Hit", "desc": "Strong hit with full torso impact" },
-    "sword-slash": { "name": "Sword Slash", "desc": "Diagonal cut with bleeding" },
-    "arrow-hit": { "name": "Arrow Hit", "desc": "Projectile impact with penetration" },
-    "block-parry": { "name": "Block/Parry", "desc": "Attack block with short vibration" },
-    "death": { "name": "Death", "desc": "Defeat/death sensation across entire body" },
-    "jump": { "name": "Jump", "desc": "Upward impulse on legs" },
-    "fall-landing": { "name": "Landing", "desc": "Impact when falling on legs and lower back" },
-    "dodge": { "name": "Dodge", "desc": "Quick lateral movement" },
-    "sprint": { "name": "Sprint", "desc": "Continuous running with steps" },
-    "wind": { "name": "Wind", "desc": "Gentle breeze on the back" },
-    "rain": { "name": "Rain", "desc": "Random drops across entire body" },
-    "fire": { "name": "Fire", "desc": "Fire burn on front zone" },
-    "engine-idle": { "name": "Engine Idle", "desc": "Continuous engine vibration" },
-    "nitro": { "name": "Nitro", "desc": "Acceleration boost" },
-    "collision-front": { "name": "Front Collision", "desc": "Strong impact on chest" },
-    "collision-back": { "name": "Rear Collision", "desc": "Impact on back" },
-    "handbrake": { "name": "Handbrake", "desc": "Hard braking" },
-    "level-up": { "name": "Level Up", "desc": "Upward achievement notification" },
-    "victory": { "name": "Victory", "desc": "Victory celebration" },
-    "heartbeat": { "name": "Heartbeat", "desc": "Cardiac pulse" },
-    "healing": { "name": "Healing", "desc": "Gentle healing effect" },
-    "hug": { "name": "Hug", "desc": "Soft enveloping hug" },
+    "light-hit": {
+      "name": "Light Hit",
+      "desc": "Quick light hit on specific zone"
+    },
+    "heavy-hit": {
+      "name": "Heavy Hit",
+      "desc": "Strong hit with full torso impact"
+    },
+    "sword-slash": {
+      "name": "Sword Slash",
+      "desc": "Diagonal cut with bleeding"
+    },
+    "arrow-hit": {
+      "name": "Arrow Hit",
+      "desc": "Projectile impact with penetration"
+    },
+    "block-parry": {
+      "name": "Block/Parry",
+      "desc": "Attack block with short vibration"
+    },
+    "death": {
+      "name": "Death",
+      "desc": "Defeat/death sensation across entire body"
+    },
+    "jump": {
+      "name": "Jump",
+      "desc": "Upward impulse on legs"
+    },
+    "fall-landing": {
+      "name": "Landing",
+      "desc": "Impact when falling on legs and lower back"
+    },
+    "dodge": {
+      "name": "Dodge",
+      "desc": "Quick lateral movement"
+    },
+    "sprint": {
+      "name": "Sprint",
+      "desc": "Continuous running with steps"
+    },
+    "wind": {
+      "name": "Wind",
+      "desc": "Gentle breeze on the back"
+    },
+    "rain": {
+      "name": "Rain",
+      "desc": "Random drops across entire body"
+    },
+    "fire": {
+      "name": "Fire",
+      "desc": "Fire burn on front zone"
+    },
+    "engine-idle": {
+      "name": "Engine Idle",
+      "desc": "Continuous engine vibration"
+    },
+    "nitro": {
+      "name": "Nitro",
+      "desc": "Acceleration boost"
+    },
+    "collision-front": {
+      "name": "Front Collision",
+      "desc": "Strong impact on chest"
+    },
+    "collision-back": {
+      "name": "Rear Collision",
+      "desc": "Impact on back"
+    },
+    "handbrake": {
+      "name": "Handbrake",
+      "desc": "Hard braking"
+    },
+    "level-up": {
+      "name": "Level Up",
+      "desc": "Upward achievement notification"
+    },
+    "victory": {
+      "name": "Victory",
+      "desc": "Victory celebration"
+    },
+    "heartbeat": {
+      "name": "Heartbeat",
+      "desc": "Cardiac pulse"
+    },
+    "healing": {
+      "name": "Healing",
+      "desc": "Gentle healing effect"
+    },
+    "hug": {
+      "name": "Hug",
+      "desc": "Soft enveloping hug"
+    },
     "combat": "Combat",
     "movement": "Movement",
     "environment": "Environment",

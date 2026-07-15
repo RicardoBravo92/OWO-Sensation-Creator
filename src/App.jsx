@@ -45,9 +45,15 @@ function App() {
   };
 
   const handleImport = (importedSensations, fileName) => {
-    setSensations(importedSensations);
+    const existing = [...sensations];
+    let nextId = generateNewId(existing);
+    const renamed = importedSensations.map(s => {
+      const id = nextId++;
+      return { ...s, id };
+    });
+    setSensations([...existing, ...renamed]);
     setCurrentFileName(fileName);
-    if (importedSensations.length > 0) setCurrentSensation(importedSensations[0]);
+    if (renamed.length > 0) setCurrentSensation(renamed[0]);
     setActiveView('editor');
   };
 
