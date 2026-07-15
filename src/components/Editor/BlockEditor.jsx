@@ -9,6 +9,46 @@ export default function BlockEditor({ block, index, onChange, onRemove }) {
   const { t } = useLanguage();
   const h = (field, value) => onChange({ ...block, [field]: value });
 
+  const durationMs = (block.duration ?? 1) * 1000;
+  const rampMax = 2000;
+
+  const fields = [
+    { l: t('block.freq'), f: 'frequency', min: 1, max: 100 },
+    { l: t('block.duration'), f: 'duration', min: 0.1, max: 5, step: 0.1 },
+    { l: t('block.intensity'), f: 'intensity', min: 0, max: 100 },
+    {
+      l: t('block.rampUp'),
+      f: 'rampUp',
+      min: 0,
+      max: Math.min(rampMax, durationMs - (block.rampDown ?? 0)),
+    },
+    {
+      l: t('block.rampDown'),
+      f: 'rampDown',
+      min: 0,
+      max: Math.min(rampMax, durationMs - (block.rampUp ?? 0)),
+    },
+    { l: t('block.exitTime'), f: 'exitTime', min: 0.1, max: 2, step: 0.1 },
+  ];
+
+  const getVal = (f) =>
+    block[f] ??
+    (f === 'frequency'
+      ? 100
+      : f === 'intensity'
+        ? 100
+        : f === 'duration'
+          ? 1
+          : 0);
+
+  const handleRamp = (field, val) => {
+    const v = Math.min(Math.max(0, val), rampMax);
+    const other =
+      field === 'rampUp' ? (block.rampDown ?? 0) : (block.rampUp ?? 0);
+    const capped = Math.min(v, durationMs - other);
+    h(field, Math.max(0, capped));
+  };
+
   return (
     <div className='bg-bg-primary border border-border rounded-lg overflow-hidden'>
       <div className='flex justify-between items-center px-4 py-3 bg-bg-tertiary'>
@@ -51,28 +91,9 @@ export default function BlockEditor({ block, index, onChange, onRemove }) {
       </div>
 
       {expanded && (
-        <div className='px-4 py-3 border-t border-border flex flex-col lg:flex-row gap-5'>
-          <div className='grid grid-cols-4 md:grid-cols-1 lg:grid-cols-1 gap-3 mb-4 w-full lg:w-1/4'>
-            {[
-              { l: t('block.freq'), f: 'frequency', min: 1, max: 100 },
-              {
-                l: t('block.duration'),
-                f: 'duration',
-                min: 0.1,
-                max: 5,
-                step: 0.1,
-              },
-              { l: t('block.intensity'), f: 'intensity', min: 0, max: 100 },
-              { l: t('block.rampUp'), f: 'rampUp', min: 0, max: 200 },
-              { l: t('block.rampDown'), f: 'rampDown', min: 0, max: 200 },
-              {
-                l: t('block.exitTime'),
-                f: 'exitTime',
-                min: 0.0,
-                max: 2,
-                step: 0.1,
-              },
-            ].map(({ l, f, min, max, step }) => (
+        <div className='px-4 py-3 border-t border-border'>
+          <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 mb-4'>
+            {fields.map(({ l, f, min, max, step }) => (
               <div key={f} className='flex flex-col gap-1'>
                 <label className='text-[10px] text-text-muted'>{l}</label>
                 <input
@@ -80,40 +101,27 @@ export default function BlockEditor({ block, index, onChange, onRemove }) {
                   min={min}
                   max={max}
                   step={step}
-                  value={
-                    block[f] ??
-                    (f === 'frequency'
-                      ? 100
-                      : f === 'intensity'
-                        ? 100
-                        : f === 'duration'
-                          ? 1
-                          : 0)
-                  }
-                  onChange={(e) =>
-                    h(
-                      f,
-                      step
-                        ? parseFloat(e.target.value) || 0
-                        : parseInt(e.target.value) || 0,
-                    )
-                  }
+                  value={getVal(f)}
+                  onChange={(e) => {
+                    const v = step
+                      ? parseFloat(e.target.value) || 0
+                      : parseInt(e.target.value) || 0;
+                    if (f === 'rampUp' || f === 'rampDown') handleRamp(f, v);
+                    else h(f, v);
+                  }}
                   className='bg-bg-secondary border border-border rounded px-2 py-1.5 text-text-primary text-sm w-full focus:outline-none focus:border-accent'
                 />
               </div>
             ))}
           </div>
 
-          <div className='mb-4 w-1/2 flex flex-col items-center md:mx-auto'>
+          <div className='mb-4'>
             <h4 className='text-xs text-text-muted mb-2'>
               {t('block.muscleIntensity')}
             </h4>
             {block.sensors.map((sensor) => (
-              <div
-                key={sensor.id}
-                className='flex items-center gap-3 py-1 w-1/2'
-              >
-                <span className='text-xs text-text-secondary w-14 md:w-28 shrink-0'>
+              <div key={sensor.id} className='flex items-center gap-3 py-1'>
+                <span className='text-xs text-text-secondary w-28 shrink-0'>
                   {t(`sensors.${sensor.id}`)}
                 </span>
                 <input

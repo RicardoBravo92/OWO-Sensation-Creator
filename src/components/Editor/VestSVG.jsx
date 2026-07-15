@@ -4,16 +4,16 @@ import { useLanguage } from '../../i18n/LanguageContext';
 const FRONT_SENSORS = [
   { id: 5, x: 12, y: 32 },
   { id: 1, x: 35, y: 32 },
-  { id: 0, x: 60, y: 32 },
-  { id: 4, x: 83, y: 32 },
-  { id: 3, x: 35, y: 58 },
-  { id: 2, x: 60, y: 58 },
+  { id: 0, x: 63, y: 32 },
+  { id: 4, x: 85, y: 32 },
+  { id: 3, x: 35, y: 70 },
+  { id: 2, x: 63, y: 70 },
 ];
 const BACK_SENSORS = [
-  { id: 7, x: 35, y: 32 },
-  { id: 6, x: 60, y: 32 },
-  { id: 9, x: 35, y: 58 },
-  { id: 8, x: 60, y: 58 },
+  { id: 7, x: 35, y: 45 },
+  { id: 6, x: 63, y: 45 },
+  { id: 9, x: 35, y: 70 },
+  { id: 8, x: 63, y: 70 },
 ];
 
 function color(i) {
@@ -33,7 +33,7 @@ function glow(i) {
 function Dot({ id, x, y, intensity, onClick, t }) {
   return (
     <button
-      className='absolute w-[30px] h-[30px] rounded-full border-2 cursor-pointer flex flex-col items-center justify-center gap-0 p-0 z-10 transition-all duration-150 hover:scale-125 hover:border-accent hover:z-20 active:scale-95 -translate-x-1/2 -translate-y-1/2'
+      className='absolute w-[20px] h-[20px] rounded-full border-2 cursor-pointer flex flex-col items-center justify-center gap-0 p-0 z-10 transition-all duration-150 hover:scale-125 hover:border-accent hover:z-20 active:scale-95 -translate-x-1/2 -translate-y-1/2'
       style={{
         left: `${x}%`,
         top: `${y}%`,
@@ -70,6 +70,7 @@ export default function VestSVG({ onSensorClick, selectedSensors }) {
           </div>
           <div className='relative w-[150px] h-[170px]'>
             <GiTShirt className='w-[150px] h-[170px] text-[#252540] drop-shadow-md' />
+            <div className='absolute left-1/2 top-[28%] -translate-x-1/2 w-[2px] h-[60%] bg-white/40 rounded-full' />
             {FRONT_SENSORS.map((s) => (
               <Dot
                 key={s.id}

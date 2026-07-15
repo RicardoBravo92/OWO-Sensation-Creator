@@ -15,7 +15,7 @@ export default function SensorSelector({
   return (
     <div className='p-2'>
       <VestSVG selectedSensors={selectedSensors} onSensorClick={click} />
-      <div className='grid grid-cols-2 gap-3 mt-3'>
+      {/* <div className='grid grid-cols-2 gap-3 mt-3'>
         {SENSORS.map((sensor) => {
           const active = selectedSensors.some((s) => s.id === sensor.id);
           return (
@@ -33,7 +33,7 @@ export default function SensorSelector({
             </div>
           );
         })}
-      </div>
+      </div> */}
     </div>
   );
 }

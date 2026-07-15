@@ -37,10 +37,10 @@
     "blockName": "Nombre del bloque",
     "activeSensors": "sensores activos",
     "freq": "Freq (Hz)",
-    "duration": "Duración",
+    "duration": "Duración (s)",
     "intensity": "Intensidad %",
-    "rampUp": "Ramp Up",
-    "rampDown": "Ramp Down",
+    "rampUp": "Ramp Up (ms)",
+    "rampDown": "Ramp Down (ms)",
     "exitTime": "Exit Time",
     "muscleIntensity": "Intensidad por Músculo"
   },
